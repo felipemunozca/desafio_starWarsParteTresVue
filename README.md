@@ -1,9 +1,9 @@
 # Curso Desarrollo de Aplicaciones Front-end Trainee 2023
 
 ## Modulo 6 - Desarrollo de Interfaces Interactivas con Framework VUE
-Sesión 7
+Sesión 8
 
-DRILLING: AGREGANDO RUTAS A NUESTRO SITIO WEB
+DRILLING: MEJORANDO STAR WARS
 
 ## Project setup
 ```
