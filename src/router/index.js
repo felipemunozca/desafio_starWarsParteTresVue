@@ -1,21 +1,30 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import HomeView from '../views/HomeView.vue'
 /**
- * Se importan los nuevos archivos de la carpeta "views" para crear las rutas.
+ * Ya que el desafió de esta sesión pide utilizar lazy loading en las rutas "/", "/personajes", "/personaje:id", "/contacto" 
+ *    ya no es necesario importar directamente las rutas de los archivos en la carpeta views.
  */
-import PersonajesView from '@/views/PersonajesView.vue';
-import ContactoView from '@/views/ContactoView.vue';
-import InfoPersonajeView from '@/views/InfoPersonajeView.vue';
+//import HomeView from '../views/HomeView.vue'
+// import PersonajesView from '@/views/PersonajesView.vue';
+// import ContactoView from '@/views/ContactoView.vue';
+// import InfoPersonajeView from '@/views/InfoPersonajeView.vue';
+
 import NotFoundView from '@/views/NotFoundView.vue';
 
 Vue.use(VueRouter)
 
 const routes = [
+  /**
+   * Para poder utilizar lazy loading en las rutas del proyecto, se debe utilizar la propiedad "component" como una función
+   *    flecha anónima, en donde dentro del método import() se debe utilizar como comentario, la palabra reservada 
+   *    webpackChunkName junto al nombre que se le ha dado a la ruta, y luego, la ruta hacia el archivo. Importante recordar
+   *    que al archivo se le debe agregar la extension .vue
+   */
   {
     path: '/',
     name: 'home',
-    component: HomeView
+    // component: HomeView
+    component: () => import(/* webpackChunkName: "home" */ '../views/HomeView.vue')
   },
   /**
    * Agregar un alias a la ruta /personajes, para que desde la url del navegador, al escribir /people o /character envié al 
@@ -24,7 +33,8 @@ const routes = [
   {
     path: '/personajes',
     name: 'personajes',
-    component: PersonajesView,
+    // component: PersonajesView,
+    component: () => import(/* webpackChunkName: "personajes" */ '../views/PersonajesView.vue'),
     alias:['/people','/characters'],
   },
   /**
@@ -34,13 +44,15 @@ const routes = [
   {
     path: '/personaje/:id',
     name: 'personaje',
-    component: InfoPersonajeView,
+    // component: InfoPersonajeView,
+    component: () => import(/* webpackChunkName: "personaje" */ '../views/InfoPersonajeView.vue'),
     props: true,
   },
   {
     path: '/contacto',
     name: 'contacto',
-    component: ContactoView,
+    // component: ContactoView,
+    component: () => import(/* webpackChunkName: "contacto" */ '../views/ContactoView.vue'),
   },
   {
     path: '/about',
